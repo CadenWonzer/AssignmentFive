@@ -61,15 +61,21 @@ class Employee(ABC):
             self.relationships[other.name] = 0
         if self.relationships[other.name] >= RELATIONSHIP_THRESHOLD:
             self.happiness += 1
+            if self.happiness > 100:
+                self.happiness = 100
         elif self.happiness >= HAPPINESS_THRESHOLD and other.happiness >= HAPPINESS_THRESHOLD:
             self.relationships[other.name] += 1
         else:
             self.relationships[other.name] -= 1
             self.happiness -= 1
+            if self.happiness < 0:
+                self.happiness = 0
 
     def daily_expense(self):
         self.happiness -= 1
         self.savings -= DAILY_EXPENSE
+        if self.happiness < 0:
+                self.happiness = 0
 
     def __str__(self):
         return f"{self.__name}\n\tSalary: ${self.salary}\n\tSavings: ${self.savings}\n\tHappiness:{self.happiness}%\n\tPerformance:{self.performance}%"
@@ -81,9 +87,13 @@ class Manager(Employee):
     A subclass of Employee representing a manager.
     """
     def work(self):
-        mangperf = random.randint(-5,5)
+        self.performance += random.randint(-5,5)
+        if self.performance > 100:
+            self.performance = 100
+        elif self.performance < 0:
+            self.performance = 0
         for key in self.relationships:
-            if mangperf <= 0:
+            if self.performance <= 0:
                 self.relationships[key] -= 1
             else:
                 self.relationships[key] += 1
@@ -96,21 +106,27 @@ class TemporaryEmployee(Employee):
     A subclass of Employee representing a temporary employee.
     """
     def work(self):
-        tempempperf = random.randint(-15,15)
+        self.performance += random.randint(-15,15)
+        if self.performance > 100:
+            self.performance = 100
+        elif self.performance < 0:
+            self.performance = 0
         for key in self.relationships:
-            if tempempperf <= 0:
+            if self.performance <= 0:
                 self.relationships[key] -= 2
             else:
                 self.relationships[key] += 1
 
     def interact(self, other):
         super().interact(other)
-        if other.isinstance(Manager):
+        if isinstance(other, Manager):
             if other.happiness > HAPPINESS_THRESHOLD and self.performance > TEMP_EMPLOYEE_PERFORMANCE_THRESHOLD:
                 self.savings += MANAGER_BONUS
             elif other.happiness <= HAPPINESS_THRESHOLD:
                 self.salary //= 2
                 self.happiness -= 5
+                if self.happiness < 0:
+                    self.happiness = 0
                 if self.salary <= 0:
                     self.is_employed = False
 
@@ -120,15 +136,21 @@ class PermanentEmployee(Employee):
     A subclass of Employee representing a permanent employee.
     """
     def work(self):
-        empperf = random.randint(-10,10)
+        self.performance += random.randint(-10,10)
+        if self.performance > 100:
+            self.performance = 100
+        elif self.performance < 0:
+            self.performance = 0
         for key in self.relationships:
-            if empperf >= 0:
+            if self.performance >= 0:
                 self.relationships[key] += 1
 
     def interact(self, other):
         super().interact(other)
-        if other.isinstance(Manager):
-            if other.happiness > HAPPINESS_THRESHOLD and self.perfomance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD:
+        if isinstance(other, Manager):
+            if other.happiness > HAPPINESS_THRESHOLD and self.performance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD:
                 self.savings += MANAGER_BONUS
             elif other.happiness <= HAPPINESS_THRESHOLD:
                 self.happiness -= 1
+                if self.happiness < 0:
+                    self.happiness = 0
