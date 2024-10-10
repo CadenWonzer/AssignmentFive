@@ -48,12 +48,21 @@ class Employee(ABC):
         self.happiness = INITIAL_HAPPINESS
         self.salary = salary
 
+    def work(self):
+
+    def interact(self, other):
+
+    def daily_expense(self):
+
+    def __str__(self):
+
 
 # TODO: implement this class. You may delete this comment when you are done.
 class Manager(Employee):
     """
     A subclass of Employee representing a manager.
     """
+    def work(self):
 
 
 # TODO: implement this class. You may delete this comment when you are done.
@@ -61,6 +70,9 @@ class TemporaryEmployee(Employee):
     """
     A subclass of Employee representing a temporary employee.
     """
+    def work(self):
+
+    def interact(self, other):
 
 
 # TODO: implement this class. You may delete this comment when you are done.
@@ -68,3 +80,7 @@ class PermanentEmployee(Employee):
     """
     A subclass of Employee representing a permanent employee.
     """
+    def work(self):
+
+    def interact(self, other):
+        
