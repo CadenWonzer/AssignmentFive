@@ -48,13 +48,19 @@ class Employee(ABC):
         self.happiness = INITIAL_HAPPINESS
         self.salary = salary
 
+    @abstractmethod
     def work(self):
+        pass
 
     def interact(self, other):
+        pass
 
     def daily_expense(self):
+        self.happiness -= 1
+        self.savings -= DAILY_EXPENSE
 
     def __str__(self):
+        return f"{self.__name}\n\tSalary: ${self.salary}\n\tSavings: ${self.savings}\n\tHappiness:{self.happiness}%\n\tPerformance:{self.performance}%"
 
 
 # TODO: implement this class. You may delete this comment when you are done.
@@ -63,6 +69,13 @@ class Manager(Employee):
     A subclass of Employee representing a manager.
     """
     def work(self):
+        mangperf = random.randint(-5,5)
+        for key in self.relationships:
+            if mangperf <= 0:
+                self.relationships[key] -= 1
+            else:
+                self.relationships[key] += 1
+
 
 
 # TODO: implement this class. You may delete this comment when you are done.
@@ -71,6 +84,12 @@ class TemporaryEmployee(Employee):
     A subclass of Employee representing a temporary employee.
     """
     def work(self):
+        tempempperf = random.randint(-15,15)
+        for key in self.relationships:
+            if tempempperf <= 0:
+                self.relationships[key] -= 2
+            else:
+                self.relationships[key] += 1
 
     def interact(self, other):
 
@@ -81,6 +100,10 @@ class PermanentEmployee(Employee):
     A subclass of Employee representing a permanent employee.
     """
     def work(self):
+        empperf = random.randint(-10,10)
+        for key in self.relationships:
+            if empperf >= 0:
+                self.relationships[key] += 1
 
     def interact(self, other):
-        
+
