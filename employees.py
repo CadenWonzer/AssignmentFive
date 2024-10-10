@@ -104,7 +104,15 @@ class TemporaryEmployee(Employee):
                 self.relationships[key] += 1
 
     def interact(self, other):
-        pass
+        super().interact(other)
+        if other.isinstance(Manager):
+            if other.happiness > HAPPINESS_THRESHOLD and self.performance > TEMP_EMPLOYEE_PERFORMANCE_THRESHOLD:
+                self.savings += MANAGER_BONUS
+            elif other.happiness <= HAPPINESS_THRESHOLD:
+                self.salary //= 2
+                self.happiness -= 5
+                if self.salary <= 0:
+                    self.is_employed = False
 
 # TODO: implement this class. You may delete this comment when you are done.
 class PermanentEmployee(Employee):
@@ -118,4 +126,9 @@ class PermanentEmployee(Employee):
                 self.relationships[key] += 1
 
     def interact(self, other):
-        pass
+        super().interact(other)
+        if other.isinstance(Manager):
+            if other.happiness > HAPPINESS_THRESHOLD and self.perfomance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD:
+                self.savings += MANAGER_BONUS
+            elif other.happiness <= HAPPINESS_THRESHOLD:
+                self.happiness -= 1
