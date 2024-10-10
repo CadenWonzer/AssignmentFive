@@ -51,9 +51,21 @@ class Employee(ABC):
     @abstractmethod
     def work(self):
         pass
-
+    
+    @property
+    def name(self):
+        return self.__name
+    
     def interact(self, other):
-        pass
+        if other.name not in self.relationships:
+            self.relationships[other.name] = 0
+        if self.relationships[other.name] >= RELATIONSHIP_THRESHOLD:
+            self.happiness += 1
+        elif self.happiness >= HAPPINESS_THRESHOLD and other.happiness >= HAPPINESS_THRESHOLD:
+            self.relationships[other.name] += 1
+        else:
+            self.relationships[other.name] -= 1
+            self.happiness -= 1
 
     def daily_expense(self):
         self.happiness -= 1
@@ -92,7 +104,7 @@ class TemporaryEmployee(Employee):
                 self.relationships[key] += 1
 
     def interact(self, other):
-
+        pass
 
 # TODO: implement this class. You may delete this comment when you are done.
 class PermanentEmployee(Employee):
@@ -106,4 +118,4 @@ class PermanentEmployee(Employee):
                 self.relationships[key] += 1
 
     def interact(self, other):
-
+        pass
