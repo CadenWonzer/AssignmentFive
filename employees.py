@@ -56,6 +56,10 @@ class Employee(ABC):
     def name(self):
         return self.__name
     
+    @property
+    def manager(self):
+        return self.__manager
+    
     def interact(self, other):
         if other.name not in self.relationships:
             self.relationships[other.name] = 0
