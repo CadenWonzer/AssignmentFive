@@ -32,7 +32,6 @@ PERCENTAGE_MIN = 0
 SALARY_ERROR_MESSAGE = "Salary must be non-negative."
 
 
-# TODO: implement this class. You may delete this comment when you are done.
 class Employee(ABC):
     """
     Abstract base class representing a generic employee in the system.
@@ -79,13 +78,12 @@ class Employee(ABC):
         self.happiness -= 1
         self.savings -= DAILY_EXPENSE
         if self.happiness < 0:
-                self.happiness = 0
+            self.happiness = 0
 
     def __str__(self):
         return f"{self.__name}\n\tSalary: ${self.salary}\n\tSavings: ${self.savings}\n\tHappiness: {self.happiness}%\n\tPerformance: {self.performance}%"
 
 
-# TODO: implement this class. You may delete this comment when you are done.
 class Manager(Employee):
     """
     A subclass of Employee representing a manager.
@@ -99,13 +97,14 @@ class Manager(Employee):
             self.performance = 0
         for key in self.relationships:
             if mangperf <= 0:
+                self.happiness -= 1
                 self.relationships[key] -= 1
             else:
-                self.relationships[key] += 1
+                self.happiness +=1
 
 
 
-# TODO: implement this class. You may delete this comment when you are done.
+
 class TemporaryEmployee(Employee):
     """
     A subclass of Employee representing a temporary employee.
@@ -119,9 +118,9 @@ class TemporaryEmployee(Employee):
             self.performance = 0
         for key in self.relationships:
             if tempperf <= 0:
-                self.relationships[key] -= 2
+                self.happiness -= 2
             else:
-                self.relationships[key] += 1
+                self.happiness += 1
 
     def interact(self, other):
         super().interact(other)
@@ -136,7 +135,7 @@ class TemporaryEmployee(Employee):
                 if self.salary <= 0:
                     self.is_employed = False
 
-# TODO: implement this class. You may delete this comment when you are done.
+
 class PermanentEmployee(Employee):
     """
     A subclass of Employee representing a permanent employee.
