@@ -78,7 +78,7 @@ class Employee(ABC):
                 self.happiness = 0
 
     def __str__(self):
-        return f"{self.__name}\n\tSalary: ${self.salary}\n\tSavings: ${self.savings}\n\tHappiness:{self.happiness}%\n\tPerformance:{self.performance}%"
+        return f"{self.__name}\n\tSalary: ${self.salary}\n\tSavings: ${self.savings}\n\tHappiness: {self.happiness}%\n\tPerformance: {self.performance}%"
 
 
 # TODO: implement this class. You may delete this comment when you are done.
@@ -87,13 +87,14 @@ class Manager(Employee):
     A subclass of Employee representing a manager.
     """
     def work(self):
-        self.performance += random.randint(-5,5)
+        mangperf = random.randint(-5,5)
+        self.performance += mangperf
         if self.performance > 100:
             self.performance = 100
         elif self.performance < 0:
             self.performance = 0
         for key in self.relationships:
-            if self.performance <= 0:
+            if mangperf <= 0:
                 self.relationships[key] -= 1
             else:
                 self.relationships[key] += 1
@@ -106,13 +107,14 @@ class TemporaryEmployee(Employee):
     A subclass of Employee representing a temporary employee.
     """
     def work(self):
-        self.performance += random.randint(-15,15)
+        tempperf = random.randint(-15,15)
+        self.performance += tempperf
         if self.performance > 100:
             self.performance = 100
         elif self.performance < 0:
             self.performance = 0
         for key in self.relationships:
-            if self.performance <= 0:
+            if tempperf <= 0:
                 self.relationships[key] -= 2
             else:
                 self.relationships[key] += 1
@@ -136,13 +138,14 @@ class PermanentEmployee(Employee):
     A subclass of Employee representing a permanent employee.
     """
     def work(self):
-        self.performance += random.randint(-10,10)
+        permperf = random.randint(-10,10)
+        self.performance += permperf
         if self.performance > 100:
             self.performance = 100
         elif self.performance < 0:
             self.performance = 0
         for key in self.relationships:
-            if self.performance >= 0:
+            if permperf >= 0:
                 self.relationships[key] += 1
 
     def interact(self, other):
